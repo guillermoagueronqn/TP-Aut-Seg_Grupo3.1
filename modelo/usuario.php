@@ -71,7 +71,7 @@
         public function cargar() {
             $respuesta = false;
             $base = new BaseDatos();
-            $sql = "SELECT * usuario WHERE idusuario = " . $this->getIdusuario();
+            $sql = "SELECT * FROM usuario WHERE idusuario = " . $this->getIdusuario();
             if ($base -> Iniciar()) {
                 $res = $base -> Ejecutar($sql);
                 if ($res > -1) {
@@ -92,7 +92,7 @@
             $base = new BaseDatos();
             $sql = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) 
             VALUES ('" . $this -> getUsnombre() .
-                "," . $this -> getUspass() . 
+                ",'" . $this -> getUspass() . 
                 "','" . $this -> getUsmail() .
                 "','" . $this -> getUsdeshabilitado() . "')";
             if ($base->Iniciar()){
@@ -113,8 +113,8 @@
             $base = new BaseDatos();
             $sql = "UPDATE usuario 
             SET usnombre = '" . $this -> getUsnombre() . 
-            "', uspass = " . $this -> getUspass() . 
-            ", usmail = '" . $this -> getUsmail() .
+            "', uspass = '" . $this -> getUspass() . 
+            "', usmail = '" . $this -> getUsmail() .
             "', usdeshabilitado = '" . $this -> getUsdeshabilitado() . 
             "' WHERE idusuario = " . $this -> getIdusuario();
             if ($base -> Iniciar()){
@@ -131,24 +131,20 @@
 
         public function eliminar() {
             $respuesta = false;
-            $base = new BaseDatos();
-            $sql = "DELETE FROM usuario WHERE idusuario = " . $this -> getIdusuario();
-            if ($base -> Iniciar()){
-                if ($base -> Ejecutar($sql)){
-                    $respuesta = true;
-                } else {
-                    $this->setmensajeoperacion("usuario->eliminar: " . $base -> getError());
-                }
-            } else {
-                $this->setmensajeoperacion("usuario->eliminar: " . $base -> getError());
+            $this -> cargar();
+            date_default_timezone_set('America/Argentina/Cordoba');
+            $fechaBaja = date('Y-m-d H:i:s');
+            $this -> setUsdeshabilitado($fechaBaja);
+            if ($this -> modificar()) {
+                $respuesta = true;
             }
             return $respuesta;
         }
- 
+
         public function listar($parametro = "") {
             $arreglo = array();
             $base = new BaseDatos();
-            $sql = "SELECT FROM usuario ";
+            $sql = "SELECT * FROM usuario ";
             if ($parametro != ""){
                 $sql .= "WHERE " . $parametro;
             }

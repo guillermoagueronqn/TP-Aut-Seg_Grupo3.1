@@ -41,7 +41,7 @@
         public function cargar() {
             $respuesta = false;
             $base = new BaseDatos();
-            $sql = "SELECT * rol WHERE idrol = " . $this->getIdrol();
+            $sql = "SELECT * FROM rol WHERE idrol = " . $this->getIdrol();
             if ($base -> Iniciar()) {
                 $res = $base -> Ejecutar($sql);
                 if ($res > -1) {
@@ -112,7 +112,7 @@
         public function listar($parametro = "") {
             $arreglo = array();
             $base = new BaseDatos();
-            $sql = "SELECT FROM rol ";
+            $sql = "SELECT * FROM rol ";
             if ($parametro != ""){
                 $sql .= "WHERE " . $parametro;
             }
