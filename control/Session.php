@@ -16,8 +16,11 @@ class Session {
     public function validar(){
         $resp = false;
         $objAbmUsuario = new AbmUsuario();
-        if ($objAbmUsuario->buscar($_SESSION) != null){
-            $resp = true;
+        $arreglo = $objAbmUsuario->buscar($_SESSION);
+        if ($arreglo != null){
+            if ($arreglo[0]->getUsdeshabilitado() == "0000-00-00 00:00:00"){
+                $resp = true;
+            }
         }
         return $resp;
     }

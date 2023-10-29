@@ -13,7 +13,7 @@
         <!-- Barra Superior INICIO -->
         <nav class="navbar bg-dark bg-gradient navbar-expand-lg navbar-dark position-absolute top-0 w-100">
             <div class="container-fluid">
-                <a href="../paginas/listarUsuario.php" class="navbar-brand fw-bold m-auto">Autenticación y Seguridad</a>
+                <a href="../paginas/inicio.php" class="navbar-brand fw-bold m-auto">Autenticación y Seguridad</a>
             </div>
         </nav>
         <!-- Barra Superior FIN -->

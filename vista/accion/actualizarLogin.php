@@ -18,9 +18,6 @@
 
 <a class="btn btn-lg btn-dark text-center text-white float-start position-absolute d-flex justify-content-start" href="../paginas/listarUsuario.php"><i class="bi bi-arrow-90deg-left"></i></a>
 <h1 class="mb-5 fw-bold">Actualizar Login</h1>
-<?php
-    if ($obj != null) {
-?>
 <div class="d-flex justify-content-center">
     <div class="w-50">
         <form method="post" action="actualizarLoginResultado.php" class="needs-validation p-5 border border-dark" novalidate>
@@ -79,11 +76,6 @@
         <script src="../js/function.js"></script>
     </div>
 </div>
-<?php
-    } else {
-        echo "<p>No se encontró la persona con el dni ingresado</p>";
-    }
-?>
 
 <?php
     include_once("../estructura/pie.php");

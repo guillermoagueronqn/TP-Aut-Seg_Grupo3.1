@@ -104,7 +104,7 @@
                     $where .= " and usnombre ='" . $param['usnombre'] . "'";
                 }
                 if (isset($param['uspass'])) {
-                    $where .= " and uspass =" . $param['uspass'];
+                    $where .= " and uspass ='" . $param['uspass'] . "'";
                 }
                 if (isset($param['usmail'])) {
                     $where .= " and usmail ='" . $param['usmail'] . "'";

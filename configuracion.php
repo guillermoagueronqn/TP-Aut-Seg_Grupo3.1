@@ -11,6 +11,4 @@
 
     include_once($ROOT . "util/funciones.php");
 
-    $_SESSION["ROOT"] = $ROOT;
-
 ?>
