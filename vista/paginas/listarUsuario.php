@@ -29,7 +29,7 @@
                 echo "<th scope='row'>" . $objUsuario -> getIdusuario() . "</th>";
                 echo "<td>" . $objUsuario -> getUsnombre() . "</td>";
                 echo "<td>" . $objUsuario -> getUsmail() . "</td>";
-                if ($objUsuario -> getUsdeshabilitado() == '0000-00-00 00:00:00') {
+                if ($objUsuario -> getUsdeshabilitado() == NULL) {
                     echo "<td>Habilitado</td>";
                     echo "<td><a class='bi bi-pencil-square link-light' href='../accion/actualizarLogin.php?accion=editar&idusuario=" . $objUsuario->getIdusuario() ."'></a></td>";
                     echo "<td><a class='bi bi-x-circle link-light' href='../accion/eliminarLogin.php?accion=borrar&idusuario=" . $objUsuario->getIdusuario() ."'></a></td>";

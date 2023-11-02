@@ -4,9 +4,13 @@
 
     include_once '../../configuracion.php';
     $datos = data_submitted();
-    $datos['uspass'] = md5($datos['uspass']);
-    $resp = false;
     $objTrans = new AbmUsuario();
+    $objUsuario = $objTrans -> buscar($datos['idusuario']);
+    $contrasenia = $objUsuario[0] -> getUspass();
+    if ($datos['uspass'] != $contrasenia) {
+        $datos['uspass'] = md5($datos['uspass']);
+    }
+    $resp = false;
     if (isset($datos['accion'])) {
         if ($datos['accion'] == 'actualizar') {
             if ($objTrans -> modificacion($datos)) {

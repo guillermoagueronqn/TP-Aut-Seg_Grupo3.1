@@ -111,12 +111,17 @@
         public function modificar() {
             $respuesta = false;
             $base = new BaseDatos();
+            if ($this -> getUsdeshabilitado() == 'null') {
+                $usDeshabilitado = "', usdeshabilitado = NULL";
+            } else {
+                $usDeshabilitado = "', usdeshabilitado = '" . $this -> getUsdeshabilitado() . "'";
+            }
             $sql = "UPDATE usuario 
             SET usnombre = '" . $this -> getUsnombre() . 
             "', uspass = '" . $this -> getUspass() . 
             "', usmail = '" . $this -> getUsmail() .
-            "', usdeshabilitado = '" . $this -> getUsdeshabilitado() . 
-            "' WHERE idusuario = " . $this -> getIdusuario();
+            $usDeshabilitado . 
+            " WHERE idusuario = " . $this -> getIdusuario();
             if ($base -> Iniciar()){
                 if ($base -> Ejecutar($sql)){
                     $respuesta = true;

@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label for="estado">Estado:</label>
                 <?php
-                    if ($obj -> getUsdeshabilitado() == "0000-00-00 00:00:00") {
+                    if ($obj -> getUsdeshabilitado() == NULL) {
                         $estado = "Habilitado";
                     } else {
                         $estado ="Deshabilitado (" . $obj -> getUsdeshabilitado() . ")";

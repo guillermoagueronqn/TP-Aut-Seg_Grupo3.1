@@ -14,7 +14,7 @@ CREATE TABLE usuario (
     usnombre varchar(50),
     uspass varchar(50),
     usmail varchar(50),
-    usdeshabilitado timestamp DEFAULT '0000-00-00 00:00:00',
+    usdeshabilitado timestamp NULL DEFAULT NULL,
     PRIMARY KEY (idusuario)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1;
 

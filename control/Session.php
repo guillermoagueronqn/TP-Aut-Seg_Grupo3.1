@@ -8,19 +8,27 @@ class Session {
 
     // Actualiza las variables de sesión con los valores ingresados.
     public function iniciar($nombreUsuario, $psw){
-        $_SESSION["usnombre"] = $nombreUsuario;
-        $_SESSION["uspass"] = $psw;
+        $resp = false;
+        $objAbmUsuario = new AbmUsuario();
+        $sesionActual['usnombre'] = $nombreUsuario;
+        $sesionActual['uspass'] = $psw;
+        $sesionActual['usdeshabilitado'] = 'null';
+        $objSesionActual = $objAbmUsuario -> buscar($sesionActual);
+        if (count($objSesionActual) > 0) {
+            $usuarioSesionActual = $objSesionActual[0];
+            $_SESSION['idusuario'] = $usuarioSesionActual -> getIdusuario();
+            $resp = true;
+        } else {
+            $this -> cerrar();
+        }
+        return $resp;
     }
 
     // Valida si la sesión actual tiene usuario y psw válidos. Devuelve true o false.
     public function validar(){
         $resp = false;
-        $objAbmUsuario = new AbmUsuario();
-        $arreglo = $objAbmUsuario->buscar($_SESSION);
-        if ($arreglo != null){
-            if ($arreglo[0]->getUsdeshabilitado() == "0000-00-00 00:00:00"){
-                $resp = true;
-            }
+        if($this -> activa() && isset($_SESSION['idusuario'])) {
+            $resp = true;
         }
         return $resp;
     }
@@ -37,34 +45,29 @@ class Session {
     // Devuelve el usuario logeado.
     public function getUsuario(){
         $objUsuario = null;
-        $objAbmUsuario = new AbmUsuario();
-        if ($listaUsuarios = $objAbmUsuario->buscar($_SESSION)){
-            $objUsuario = $listaUsuarios[0];
+        if ($this -> validar()) {
+            $objAbmUsuario = new AbmUsuario();
+            if ($listaUsuarios = $objAbmUsuario->buscar($_SESSION)){
+                $objUsuario = $listaUsuarios[0];
+            }
         }
         return $objUsuario;
     }
 
     // Devuelve el rol del usuario logeado.
     public function getRol(){
-        $objRol = null;
-        $objUsuario = $this->getUsuario();
-        if ($objUsuario != null){
-            $parametro["idusuario"] = $objUsuario->getIdusuario();
+        $listaRoles = null;
+        if ($this -> validar()) {
             $objAbmUsuarioRol = new AbmUsuariorol();
-            if ($listaUsuarioRol = $objAbmUsuarioRol->buscar($parametro)){
-                $param2["idrol"] = $listaUsuarioRol[0]->getObjRol()->getIdrol();
-                $objAbmRol = new AbmRol();
-                if ($listaRol = $objAbmRol->buscar($param2)){
-                    $objRol = $listaRol[0];
-                }
+            if ($listaUsuarioRol = $objAbmUsuarioRol->buscar($_SESSION['idusuario'])){
+                $listaRoles = $listaUsuarioRol;
             }
         }
-        return $objRol;
+        return $listaRoles;
     }
 
     //  Cierra la sesión actual.
     public function cerrar(){
-        session_unset();
         session_destroy();
     }
 }
