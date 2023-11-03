@@ -12,12 +12,16 @@ class Session {
         $objAbmUsuario = new AbmUsuario();
         $sesionActual['usnombre'] = $nombreUsuario;
         $sesionActual['uspass'] = $psw;
-        $sesionActual['usdeshabilitado'] = 'null';
+        $sesionActual['usdeshabilitado'] = null;
         $objSesionActual = $objAbmUsuario -> buscar($sesionActual);
-        if (count($objSesionActual) > 0) {
+        if ($objSesionActual) {
             $usuarioSesionActual = $objSesionActual[0];
-            $_SESSION['idusuario'] = $usuarioSesionActual -> getIdusuario();
-            $resp = true;
+            if ($usuarioSesionActual->getUsdeshabilitado() == NULL){
+                $_SESSION['idusuario'] = $usuarioSesionActual -> getIdusuario();
+                $resp = true;
+            } else {
+                $this -> cerrar();
+            }
         } else {
             $this -> cerrar();
         }

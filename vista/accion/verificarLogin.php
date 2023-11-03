@@ -6,7 +6,7 @@
     if($objSession->validar()){
         header('Location:../paginas/paginaSegura.php');   
     } else {
-        $objSession->cerrar();
+        //$objSession->cerrar();
         header('Location:../paginas/login.php');
     }
 ?>
